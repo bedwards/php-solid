@@ -20,6 +20,7 @@ vendor/bin/phpunit --generate-configuration
 Commands you might need to run:
 
 ```
+composer clear-cache
 composer dump-autoload
 ```
 

@@ -4,7 +4,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Solid\\": "src/"
+            "": "src/"
         }
     },
     "autoload-dev": {
