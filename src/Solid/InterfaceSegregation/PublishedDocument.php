@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Solid\InterfaceSegregation;
 
-use Solid\InterfaceSegregation\Printable;
-use Solid\InterfaceSegregation\Readable;
-
 class PublishedDocument implements Readable, Printable
 {
     public function __construct(private string $content)

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Solid\OpenClosed;
 
-use Solid\OpenClosed\Notifier;
-
 class SMSNotifier implements Notifier
 {
     /** @var array<string, string> */

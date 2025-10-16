@@ -4,13 +4,6 @@ declare(strict_types=1);
 
 namespace Solid\InterfaceSegregation;
 
-use Solid\InterfaceSegregation\Printable;
-use Solid\InterfaceSegregation\Readable;
-use Solid\InterfaceSegregation\Writable;
-use Solid\InterfaceSegregation\DraftDocument;
-use Solid\InterfaceSegregation\PublishedDocument;
-use Solid\InterfaceSegregation\ArchivedDocument;
-
 class DocumentWorkflowService
 {
     /** @var array<string, Readable|Writable|Printable> */
