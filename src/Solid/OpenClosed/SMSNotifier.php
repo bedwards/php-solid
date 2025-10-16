@@ -24,6 +24,12 @@ class SMSNotifier implements Notifier
 
     public function sendNotification(string $recipientKey, string $message): void
     {
-        echo "SMS: " . $this->recipients[$recipientKey] . " $message\n";
+        $recipient = $this->recipients[$recipientKey] ?? null;
+
+        if ($recipient === null) {
+            throw new \Exception('Key missing');
+        }
+
+        echo "SMS: $recipient $message\n";
     }
 }

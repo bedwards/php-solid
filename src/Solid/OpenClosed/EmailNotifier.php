@@ -24,6 +24,12 @@ class EmailNotifier implements Notifier
 
     public function sendNotification(string $recipientKey, string $message): void
     {
-        echo "Email: " . $this->recipients[$recipientKey] . " $message\n";
+        $recipient = $this->recipients[$recipientKey] ?? null;
+
+        if ($recipient === null) {
+            throw new \Exception('Key missing');
+        }
+
+        echo "Email: $recipient $message\n";
     }
 }
