@@ -1,0 +1,15 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^12.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Solid\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Solid\\Tests\\": "tests/"
+        }
+    }
+}

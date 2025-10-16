@@ -8,6 +8,21 @@ Minimal examples of SOLID principles implemented in PHP.
 - [Interface segregation principle](#interface-segregation-principle)
 - [Dependency inversion principle](#dependency-inversion-principle)
 
+## Helpful commands
+
+Commands I already ran:
+
+```
+composer require --dev phpunit/phpunit
+vendor/bin/phpunit --generate-configuration
+```
+
+Commands you might need to run:
+
+```
+composer dump-autoload
+```
+
 ## Single-responsibility principle
 
 The Single-responsibility principle addresses a fundamental question about how to organize code: what should a module be responsible for? The principle states that a class or module should have one, and only one, reason to change. This statement is deceptively simple but profoundly important. It means that each software unit should be responsible for one cohesive aspect of the system's functionality, and all of its capabilities should be aligned with that single purpose.
