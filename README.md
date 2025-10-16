@@ -102,7 +102,7 @@ In practice, achieving perfect closure is impossible. At some point, new require
 
 [Back to top](#php-solid)
 
-> [! NOTE]
+> [!NOTE]
 > The OpenClosed `NotifierService` demonstrates the Liskov principle. `EmailNotifier` and `SMSNotifier` are substitutable for the `Notifier` interface. The service works correctly regardless of which concrete notifier it receives. Both honor the contract: accept a recipient key and message, send the notification.
 
 The Liskov substitution principle addresses a critical question about inheritance and polymorphism: when can one type safely replace another? The principle states that objects of a supertype should be replaceable with objects of any of its subtypes without altering the correctness of the program. This means that if your code works with a base class, it must work equally well with any derived class, without the calling code needing to know which specific subtype it is using.
