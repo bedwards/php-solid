@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Solid\OpenClosed;
+
+use Solid\OpenClosed\Notifier;
+
+class EmailNotifier implements Notifier
+{
+    private array $recipients = [];
+
+    public function addRecipient(string $key, string $address): void
+    {
+        $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/';
+
+        if (! (bool) preg_match($pattern, $address)) {
+            throw new \Exception("Bad email address: $address");
+        }
+
+        $this->recipients[$key] = $address;
+    }
+
+    public function sendNotification(string $recipientKey, string $message): void
+    {
+        echo "Email: " . $this->recipients[$recipientKey] . " $message\n";
+    }
+}

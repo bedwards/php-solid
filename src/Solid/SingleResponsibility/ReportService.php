@@ -6,7 +6,7 @@ namespace Solid\SingleResponsibility;
 
 class ReportService
 {
-    public function coordinateWorkflow($dataId)
+    public function coordinateWorkflow(int $dataId): void
     {
         $repo = new DataRepository();
         $calc = new ReportCalculator();

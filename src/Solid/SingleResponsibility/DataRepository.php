@@ -6,7 +6,7 @@ namespace Solid\SingleResponsibility;
 
 class DataRepository
 {
-    public function getData($dataId)
+    public function getData(int $dataId): array
     {
         return [8, 13];
     }

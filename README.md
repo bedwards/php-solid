@@ -5,10 +5,10 @@
 Minimal examples of SOLID principles implemented in PHP.
 
 - [Single-responsibility principle](#single-responsibility-principle) | [Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/SingleResponsibility)
-- [Open-closed principle](#open-closed-principle)
-- [Liskov substitution principle](#liskov-substitution-principle)
-- [Interface segregation principle](#interface-segregation-principle)
-- [Dependency inversion principle](#dependency-inversion-principle)
+- [Open-closed principle](#open-closed-principle) | [Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/OpenClosed)
+- [Liskov substitution principle](#liskov-substitution-principle) | [Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/LiskovSubstitution)
+- [Interface segregation principle](#interface-segregation-principle) | [Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/InterfaceSegregation)
+- [Dependency inversion principle](#dependency-inversion-principle) | [Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/DependencyInversion)
 
 ## Helpful commands
 
@@ -17,6 +17,8 @@ Commands I already ran:
 ```
 composer require --dev phpunit/phpunit
 vendor/bin/phpunit --generate-configuration
+
+composer require --dev phpstan/phpstan
 ```
 
 Commands you might need to run:
@@ -24,6 +26,12 @@ Commands you might need to run:
 ```
 composer clear-cache
 composer dump-autoload
+```
+
+Perform static analysis and run tests with:
+
+```
+./qa.sh
 ```
 
 ## Single-responsibility principle
@@ -40,11 +48,11 @@ Consider a report generation system. The naive approach creates a class called R
 
 Now imagine change requests arrive from different sources. The marketing team wants reports in a new visual format with different charts. The IT department needs to migrate from one database system to another. The security team requires that all emails use encrypted connections. The business analysts discover that certain calculations were using incorrect formulas. Each change forces modifications to the same ReportGenerator class. Every change risks breaking unrelated functionality because everything is entangled. Testing becomes a nightmare because you cannot test data fetching without also involving formatting logic, and you cannot verify calculations without database connections.
 
-The proper approach separates these concerns into distinct classes, each with a single responsibility. A **DataRepository** class handles all database interactions. Its sole reason to change is if the data source or data access strategy changes. A **ReportCalculator** class contains the business logic for computing statistics from raw data. It changes only when business rules change. A **ReportFormatter** class transforms calculated results into presentation formats like HTML or PDF. It changes only when presentation requirements change. An **EmailSender** class handles the transmission of completed reports. It changes only when communication protocols or delivery mechanisms change.
+The proper approach separates these concerns into distinct classes, each with a single responsibility. A `DataRepository` class handles all database interactions. Its sole reason to change is if the data source or data access strategy changes. A `ReportCalculator` class contains the business logic for computing statistics from raw data. It changes only when business rules change. A `ReportFormatter` class transforms calculated results into presentation formats like HTML or PDF. It changes only when presentation requirements change. An `EmailSender` class handles the transmission of completed reports. It changes only when communication protocols or delivery mechanisms change.
 
-Each class now has a single axis of change. When the database migration occurs, only **DataRepository** is modified. When new formatting is needed, only **ReportFormatter** is touched. When calculation errors are discovered, only **ReportCalculator** is updated. Changes become isolated, reducing risk. Testing becomes straightforward because each class can be tested independently with mock objects for its dependencies.
+Each class now has a single axis of change. When the database migration occurs, only `DataRepository` is modified. When new formatting is needed, only `ReportFormatter` is touched. When calculation errors are discovered, only `ReportCalculator` is updated. Changes become isolated, reducing risk. Testing becomes straightforward because each class can be tested independently with mock objects for its dependencies.
 
-The orchestration of these responsibilities falls to a separate class, perhaps called **ReportService**, which coordinates the workflow. It asks **DataRepository** for data, passes that data to **ReportCalculator** for processing, hands results to **ReportFormatter** for presentation, and finally uses **EmailSender** for delivery. This coordinator has its own responsibility: workflow orchestration. It changes when the sequence of operations changes, which is itself a distinct concern.
+The orchestration of these responsibilities falls to a separate class, perhaps called `ReportService`, which coordinates the workflow. It asks `DataRepository` for data, passes that data to `ReportCalculator` for processing, hands results to `ReportFormatter` for presentation, and finally uses `EmailSender` for delivery. This coordinator has its own responsibility: workflow orchestration. It changes when the sequence of operations changes, which is itself a distinct concern.
 
 The opposite of following this principle is creating what developers call a "God class" or "God object." These are classes that know too much and do too much. They accumulate responsibilities over time as developers continually add features to existing classes rather than creating new ones. God classes become central bottlenecks in a system. Every feature touches them. Every developer must modify them. Merge conflicts multiply. Testing becomes impossible without instantiating the entire world. These classes might have thousands of lines of code, dozens of methods, and dependencies on nearly every other part of the system.
 
@@ -56,11 +64,13 @@ The relationship to other SOLID principles is instructive. The Open-closed princ
 
 A common confusion arises between the Single-responsibility principle and the separation of concerns. Separation of concerns is a broader architectural concept about organizing a system into distinct sections, each addressing a separate concern. The Single-responsibility principle is a specific application of this concept at the class or module level. Separation of concerns might guide you to separate your user interface from your business logic from your data access. The Single-responsibility principle then guides how you organize classes within each of those layers, ensuring each class has one focused purpose even within its layer.
 
-Another confusion involves thinking that single responsibility means "does only one thing." A responsibility is not a single action but a cohesive set of related capabilities serving one conceptual purpose. A **ReportCalculator** might perform many different calculations—averages, totals, percentages, trends. These are all part of its single responsibility: computing business metrics. The responsibility is defined by the reason to change, not by the number of functions.
+Another confusion involves thinking that single responsibility means "does only one thing." A responsibility is not a single action but a cohesive set of related capabilities serving one conceptual purpose. A `ReportCalculator` might perform many different calculations—averages, totals, percentages, trends. These are all part of its single responsibility: computing business metrics. The responsibility is defined by the reason to change, not by the number of functions.
 
 In practice, identifying responsibilities requires judgment and experience. Responsibilities that seem distinct might actually be facets of the same concern, and what appears unified might hide multiple concerns. The test is to ask: if this aspect of the system needs to change, what else must change with it? If many unrelated things must change together, they probably share a responsibility. If they can change independently, they are likely separate responsibilities. The principle guides toward a design where changes ripple through the minimum necessary scope, keeping modifications localized and predictable.
 
 ## Open-closed principle
+
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/OpenClosed)
 
 The Open-closed principle fundamentally addresses a tension in software design: how do you accommodate new requirements without constantly rewriting existing, working code? The principle states that software entities should be open for extension but closed for modification. This means you should be able to add new functionality to a system without changing its existing source code.
 
@@ -72,11 +82,11 @@ The mechanism that enables both properties simultaneously is abstraction combine
 
 Here is a thorough demonstration using a notification system. Imagine a system that sends notifications to users. Initially, it might only support email notifications. The naive approach would hardcode email logic throughout the application. When SMS support is needed later, you would modify that code, adding conditional branches everywhere notifications are sent. This violates the Open-closed principle because the existing code is being modified.
 
-The proper approach begins by defining an abstraction called Notifier that represents the concept of sending a notification. This abstraction declares a method signature like "send notification to recipient with message" without specifying how the notification is actually delivered. The core application code then depends on this abstraction. It might have a NotificationService that accepts a collection of Notifiers and uses them to send messages. Critically, this service is written once and never modified again.
+The proper approach begins by defining an abstraction called `Notifier` that represents the concept of sending a notification. This abstraction declares a method signature like "send notification to recipient with message" without specifying how the notification is actually delivered. The core application code then depends on this abstraction. It might have a `NotificationService` that accepts a collection of `Notifier`s and uses them to send messages. Critically, this service is written once and never modified again.
 
-The email functionality becomes one concrete implementation of Notifier. It implements the send method by connecting to an SMTP server and delivering the message via email. When SMS support is needed, you create a new SMSNotifier class that implements the same interface but sends messages through a telecommunications gateway instead. The NotificationService requires no changes because it only knows about the Notifier abstraction. You've extended the system's capabilities without modifying existing code.
+The email functionality becomes one concrete implementation of `Notifier`. It implements the send method by connecting to an SMTP server and delivering the message via email. When SMS support is needed, you create a new `SMSNotifier` class that implements the same interface but sends messages through a telecommunications gateway instead. The `NotificationService` requires no changes because it only knows about the `Notifier` abstraction. You've extended the system's capabilities without modifying existing code.
 
-To demonstrate thoroughness, consider adding push notifications, Slack messages, or webhook deliveries. Each becomes another implementation of Notifier. The system grows by addition, not by alteration. You might even create composite notifiers that send through multiple channels, or decorators that add logging or retry logic, all without touching the original service.
+To demonstrate thoroughness, consider adding push notifications, Slack messages, or webhook deliveries. Each becomes another implementation of `Notifier`. The system grows by addition, not by alteration. You might even create composite notifiers that send through multiple channels, or decorators that add logging or retry logic, all without touching the original service.
 
 The opposite of following this principle is the modification-based approach where you repeatedly edit the same code to add features. In that approach, the NotificationService would contain a type field and a large conditional statement checking whether to send email, SMS, or another type. Each new notification method requires modifying this conditional, adding branches, increasing complexity, and risking the introduction of bugs into previously working code paths. The code becomes increasingly fragile and difficult to test.
 
@@ -89,6 +99,8 @@ The principle also differs from configuration-driven systems, though they share 
 In practice, achieving perfect closure is impossible. At some point, new requirements will necessitate changes to existing code. The principle guides design toward minimizing such modifications and isolating them to specific points in the system. You identify the dimensions along which change is likely and create abstractions there, accepting that unforeseen dimensions may eventually require some modification. The goal is not absolute immutability but strategic stability in the face of predictable variations.
 
 ## Liskov substitution principle
+
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/LiskovSubstitution)
 
 The Liskov substitution principle addresses a critical question about inheritance and polymorphism: when can one type safely replace another? The principle states that objects of a supertype should be replaceable with objects of any of its subtypes without altering the correctness of the program. This means that if your code works with a base class, it must work equally well with any derived class, without the calling code needing to know which specific subtype it is using.
 
@@ -129,6 +141,8 @@ In practice, achieving proper Liskov substitutability requires careful design of
 The test for Liskov substitutability is straightforward in principle though challenging in practice: write tests for the parent class that verify its contract, then run those same tests against each subclass. If any subclass fails tests that the parent passes, you have found a violation. The subclass is not honoring the behavioral contract. This test-based approach makes the abstract principle concrete and actionable, revealing design flaws that might otherwise remain hidden until runtime failures occur in production.
 
 ## Interface segregation principle
+
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/InterfaceSegregation)
 
 The Interface segregation principle addresses a fundamental question about the design of abstractions: how should we define the contracts that clients depend upon? The principle states that no client should be forced to depend on methods it does not use. This means that interfaces should be designed from the perspective of the clients that use them, not from the perspective of the classes that implement them. Fat interfaces that bundle many methods together force clients into unnecessary dependencies, while properly segregated interfaces provide exactly what each client needs and nothing more.
 
@@ -175,6 +189,8 @@ In practice, applying this principle requires understanding your clients. You mu
 The test for proper interface segregation is to examine each client and ask whether it uses every method in the interfaces it depends upon. If a client depends on an interface but only calls a subset of its methods, segregation is incomplete. The unused methods represent unnecessary coupling. Ideally, each client depends on interfaces where it calls every declared method. When this ideal is achieved, each client has exactly the dependencies it needs, no more and no less, and changes propagate only where they genuinely matter.
 
 ## Dependency inversion principle
+
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/DependencyInversion)
 
 The Dependency inversion principle addresses perhaps the most architecturally significant question in software design: in what direction should dependencies point? The principle states that high-level modules should not depend on low-level modules, but both should depend on abstractions. Furthermore, abstractions should not depend on details, but details should depend on abstractions. This principle fundamentally inverts the dependency structure that naturally emerges from naive design, creating a more stable and flexible architecture.
 

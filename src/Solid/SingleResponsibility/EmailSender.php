@@ -6,7 +6,7 @@ namespace Solid\SingleResponsibility;
 
 class EmailSender
 {
-    public function deliver($presentation)
+    public function deliver(string $presentation): void
     {
         echo "$presentation\n";
     }

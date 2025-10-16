@@ -11,10 +11,11 @@ use Solid\SingleResponsibility\ReportService;
 #[CoversClass(ReportService::class)]
 class SingleResponsibilityTest extends TestCase
 {
-    public function testWorkflowCoordination()
+    public function testWorkflowCoordination(): void
     {
         $this->expectOutputString("Results: 21\n");
+
         $service = new ReportService();
-        $result = $service->coordinateWorkflow(57721);
+        $service->coordinateWorkflow(57721);
     }
 }
