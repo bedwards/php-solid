@@ -4,7 +4,7 @@
 
 Minimal examples of SOLID principles implemented in PHP.
 
-- [Single-responsibility principle](#single-responsibility-principle)
+- [Single-responsibility principle](#single-responsibility-principle) [Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/SingleResponsibility)
 - [Open-closed principle](#open-closed-principle)
 - [Liskov substitution principle](#liskov-substitution-principle)
 - [Interface segregation principle](#interface-segregation-principle)
