@@ -28,6 +28,8 @@ composer dump-autoload
 
 ## Single-responsibility principle
 
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/SingleResponsibility)
+
 The Single-responsibility principle addresses a fundamental question about how to organize code: what should a module be responsible for? The principle states that a class or module should have one, and only one, reason to change. This statement is deceptively simple but profoundly important. It means that each software unit should be responsible for one cohesive aspect of the system's functionality, and all of its capabilities should be aligned with that single purpose.
 
 The key insight lies in understanding what "reason to change" means. A reason to change is not a feature or a function, but rather a source of requirements. Different stakeholders in a system have different concerns. Business analysts care about business rules. Database administrators care about data persistence. System administrators care about logging and monitoring. When a class serves multiple stakeholders, changes requested by any one of them will force modifications to that class. This coupling between unrelated concerns creates fragility. A change to satisfy one stakeholder might inadvertently break functionality that another stakeholder depends on.
