@@ -12,6 +12,6 @@ class ReportCalculator
      */
     public function process(array $data): array
     {
-        return [$data[0] + $data [1]];
+        return [$data[0] + $data[1]];
     }
 }
