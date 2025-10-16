@@ -13,7 +13,7 @@ use Solid\OpenClosed\SMSNotifier;
 #[CoversClass(NotifierService::class)]
 class OpenClosedTest extends TestCase
 {
-    public function testSendNotifications()
+    public function testSendNotifications(): void
     {
         $this->expectOutputString(
             "Email: world@hello.com Hello world\n" .

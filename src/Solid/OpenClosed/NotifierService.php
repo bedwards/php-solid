@@ -8,6 +8,7 @@ use Solid\OpenClosed\Notifier;
 
 class NotifierService
 {
+    /** @var Notifier[] */
     private $notifiers = [];
 
     public function addNotifier(Notifier $notifier): void

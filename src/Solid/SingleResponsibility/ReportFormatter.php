@@ -6,6 +6,7 @@ namespace Solid\SingleResponsibility;
 
 class ReportFormatter
 {
+    /** @param int[] $results */
     public function present(array $results): string
     {
         $formatted = implode(',', $results);

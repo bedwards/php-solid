@@ -8,6 +8,7 @@ use Solid\OpenClosed\Notifier;
 
 class SMSNotifier implements Notifier
 {
+    /** @var array<string, string> */
     private array $recipients = [];
 
     public function addRecipient(string $key, string $address): void

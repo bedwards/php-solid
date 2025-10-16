@@ -8,6 +8,7 @@ use Solid\OpenClosed\Notifier;
 
 class EmailNotifier implements Notifier
 {
+    /** @var array<string, string> */
     private array $recipients = [];
 
     public function addRecipient(string $key, string $address): void
