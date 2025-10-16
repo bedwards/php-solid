@@ -36,7 +36,7 @@ Perform static analysis and run tests with:
 
 ## Single-responsibility principle
 
-[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/SingleResponsibility)
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/SingleResponsibility) | [Back to top](#php-solid)
 
 The Single-responsibility principle addresses a fundamental question about how to organize code: what should a module be responsible for? The principle states that a class or module should have one, and only one, reason to change. This statement is deceptively simple but profoundly important. It means that each software unit should be responsible for one cohesive aspect of the system's functionality, and all of its capabilities should be aligned with that single purpose.
 
@@ -70,7 +70,7 @@ In practice, identifying responsibilities requires judgment and experience. Resp
 
 ## Open-closed principle
 
-[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/OpenClosed)
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/OpenClosed) | [Back to top](#php-solid)
 
 The Open-closed principle fundamentally addresses a tension in software design: how do you accommodate new requirements without constantly rewriting existing, working code? The principle states that software entities should be open for extension but closed for modification. This means you should be able to add new functionality to a system without changing its existing source code.
 
@@ -100,7 +100,7 @@ In practice, achieving perfect closure is impossible. At some point, new require
 
 ## Liskov substitution principle
 
-[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/LiskovSubstitution)
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/LiskovSubstitution) | [Back to top](#php-solid)
 
 The Liskov substitution principle addresses a critical question about inheritance and polymorphism: when can one type safely replace another? The principle states that objects of a supertype should be replaceable with objects of any of its subtypes without altering the correctness of the program. This means that if your code works with a base class, it must work equally well with any derived class, without the calling code needing to know which specific subtype it is using.
 
@@ -142,7 +142,7 @@ The test for Liskov substitutability is straightforward in principle though chal
 
 ## Interface segregation principle
 
-[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/InterfaceSegregation)
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/InterfaceSegregation) | [Back to top](#php-solid)
 
 The Interface segregation principle addresses a fundamental question about the design of abstractions: how should we define the contracts that clients depend upon? The principle states that no client should be forced to depend on methods it does not use. This means that interfaces should be designed from the perspective of the clients that use them, not from the perspective of the classes that implement them. Fat interfaces that bundle many methods together force clients into unnecessary dependencies, while properly segregated interfaces provide exactly what each client needs and nothing more.
 
@@ -190,7 +190,7 @@ The test for proper interface segregation is to examine each client and ask whet
 
 ## Dependency inversion principle
 
-[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/DependencyInversion)
+[Code](https://github.com/bedwards/php-solid/tree/main/src/Solid/DependencyInversion) | [Back to top](#php-solid)
 
 The Dependency inversion principle addresses perhaps the most architecturally significant question in software design: in what direction should dependencies point? The principle states that high-level modules should not depend on low-level modules, but both should depend on abstractions. Furthermore, abstractions should not depend on details, but details should depend on abstractions. This principle fundamentally inverts the dependency structure that naturally emerges from naive design, creating a more stable and flexible architecture.
 
