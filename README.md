@@ -1,5 +1,7 @@
 # PHP SOLID
 
+[![Tests](https://github.com/bedwards/php-solid/actions/workflows/tests.yml/badge.svg)](https://github.com/bedwards/php-solid/actions/workflows/tests.yml)
+
 Minimal examples of SOLID principles implemented in PHP.
 
 - [Single-responsibility principle](#single-responsibility-principle)
